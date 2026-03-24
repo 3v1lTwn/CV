@@ -1,118 +1,152 @@
+import React, { useState } from 'react';
 import './App.css';
 import ChatWidget from './components/ChatWidget';
 
-function App() {
-  const competencies = {
-    "Architecture": ["Enterprise RPA Design", "Solution Design Document (SDD)", "Infrastructure Scaling (Azure/On-prem)"],
-    "Automation Stack": ["UiPath (Advanced)", "n8n", "Microsoft Power Automate", "Blue Prism"],
-    "AI & ML": ["Azure AI Services", "Document Understanding", "LLM Integration (LangChain)", "Python"],
-    "Strategy": ["CoE Governance", "Process Mining (Celonis/UiPath)", "Agile Methodology", "ROI Analysis"],
-    "Development": ["Python", "SQL", ".NET", "REST APIs", "Infrastructure as Code (Terraform)"]
-  };
+type CVLanguage = 'tr' | 'en' | 'de';
 
-  const certifications = [
-    { name: "Microsoft Certified: Azure AI Fundamentals", icon: "🤖" },
-    { name: "Microsoft Certified: Azure Data Fundamentals", icon: "📊" },
-    { name: "Microsoft Certified: Azure Fundamentals", icon: "☁️" },
-    { name: "UiPath Certified Advanced RPA Developer", icon: "⚙️" },
-    { name: "UiPath Certified Solution Architect", icon: "📐" }
-  ];
+const translations = {
+  tr: {
+    title: "İRFAN DEMİRCİOĞLU",
+    role: "Intelligent Automation Architect | Hyperautomation & AI Lead",
+    relocation: "Istanbul, Turkey (Mobilite: Avrupa Geneli)",
+    summary_title: "🎯 PROFESYONEL ÖZET",
+    summary_text: "Stratejik Akıllı Otomasyon Lideri. Akbank bünyesinde RPA Mükemmeliyet Merkezi (CoE) yönetimi, Üretken Yapay Zeka (LLM) entegrasyonu ve yüksek kapasiteli robot filolarının mimari tasarımı konularında 7+ yıl deneyim. UiPath, Azure AI ve Power Platform uzmanı.",
+    experience_title: "💼 PROFESYONEL DENEYİM",
+    akbank_role: "Intelligent Automation Lead & Architect",
+    akbank_focus: "Stratejik Odak: Kurumsal Ölçekte Orkestrasyon, Yönetişim ve Hiper-otomasyon.",
+    akbank_points: [
+      "Enterprise-Scale Orchestration: Türkiye'nin en büyük özel bankalarından birinde, kritik finansal süreçleri yürüten devasa ölçekli bir otomasyon filosunun tüm yaşam döngüsünü ve mimari tasarımını yönetiyorum.",
+      "High-Availability Architecture: 7/24 kesintisiz çalışması gereken misyon-kritik bankacılık işlemleri için yüksek erişilebilirlik ve felaket kurtarma standartlarında dayanıklı bir altyapı kurguladım.",
+      "Hyperautomation Transformation: Geleneksel RPA süreçlerini; GenAI (LLM), Document Understanding ve Azure AI servisleri ile entegre ederek, bankanın dijital dönüşümünü 'Akıllı Otomasyon' seviyesine taşıyorum.",
+      "CoE Governance & Strategy: Geliştirme standartlarını, kod güvenliği protokollerini ve operasyonel verimlilik metriklerini belirleyerek kurumsal düzeyde bir yönetişim modeli uyguluyorum.",
+      "Cross-Functional Impact: Hazine, Operasyon ve Kredi süreçlerinde karmaşık iş akışlarını optimize ederek ölçülebilir verimlilik artışı ve risk azaltımı sağlıyorum."
+    ],
+    skills_title: "🛠️ YETENEKLER",
+    projects_title: "🚀 TEKNİK PROJELER",
+    education_title: "🎓 EĞİTİM",
+    education_school: "SABANCI ÜNİVERSİTESİ",
+    education_degree: "Mekatronik Mühendisliği Lisans",
+    cert_title: "📜 SERTİFİKALAR"
+  },
+  en: {
+    title: "İRFAN DEMİRCİOĞLU",
+    role: "Intelligent Automation Architect | Hyperautomation & AI Lead",
+    relocation: "Istanbul, Turkey (Relocation: Europe-wide)",
+    summary_title: "🎯 PROFESSIONAL SUMMARY",
+    summary_text: "Strategic Intelligent Automation Leader with 7+ years of experience in architecting enterprise-scale ecosystems. Expert in UiPath, Azure AI, and Power Platform, focusing on Generative AI integration and large-scale robot fleet management.",
+    experience_title: "💼 PROFESSIONAL EXPERIENCE",
+    akbank_role: "Intelligent Automation Lead & Architect",
+    akbank_focus: "Strategic Focus: Enterprise-Scale Orchestration, Governance, and Hyperautomation.",
+    akbank_points: [
+      "Enterprise-Scale Orchestration: Managing the lifecycle and architectural design of a massive automation fleet for critical financial processes at one of Turkey's largest private banks.",
+      "High-Availability Architecture: Designed a resilient infrastructure with high-availability and disaster recovery standards for mission-critical banking operations.",
+      "Hyperautomation Transformation: Integrating traditional RPA with GenAI (LLM), Document Understanding, and Azure AI services to drive digital transformation.",
+      "CoE Governance & Strategy: Implementing a corporate governance model by setting development standards, security protocols, and efficiency metrics.",
+      "Cross-Functional Impact: Optimizing complex workflows across Treasury, Operations, and Credits to reduce risk and increase measurable efficiency."
+    ],
+    skills_title: "🛠️ SKILLS",
+    projects_title: "🚀 TECHNICAL PROJECTS",
+    education_title: "🎓 EDUCATION",
+    education_school: "SABANCI UNIVERSITY",
+    education_degree: "B.Sc. in Mechatronics Engineering",
+    cert_title: "📜 CERTIFICATIONS"
+  },
+  de: {
+    title: "İRFAN DEMİRCİOĞLU",
+    role: "Intelligent Automation Architect | Hyperautomation & AI Lead",
+    relocation: "Istanbul, Türkei (Umzug: Europaweit)",
+    summary_title: "🎯 ZUSAMMENFASSUNG",
+    summary_text: "Strategischer Intelligent Automation Leader mit über 7 Jahren Erfahrung. Experte für UiPath, Azure AI und Power Platform mit Fokus auf Hyperautomation und KI-Integration.",
+    experience_title: "💼 BERUFSERFAHRUNG",
+    akbank_role: "Intelligent Automation Lead & Architect",
+    akbank_focus: "Strategischer Fokus: Orchestrierung, Governance und Hyperautomatisierung auf Unternehmensebene.",
+    akbank_points: [
+      "Orchestrierung auf Unternehmensebene: Management des gesamten Lebenszyklus einer massiven Automatisierungsflotte.",
+      "Hochverfügbarkeitsarchitektur: Entwicklung einer belastbaren Infrastruktur für geschäftskritische Bankgeschäfte.",
+      "Hyperautomation Transformation: Integration von RPA mit GenAI (LLM) und Azure AI Services.",
+      "CoE Governance & Strategie: Implementierung eines Governance-Modells für Entwicklungsstandards und Sicherheit.",
+      "Cross-Functional Impact: Optimierung komplexer Workflows zur Steigerung der messbaren Effizienz."
+    ],
+    skills_title: "🛠️ FÄHIGKEİTEN",
+    projects_title: "🚀 PROJEKTE",
+    education_title: "🎓 BILDUNG",
+    education_school: "SABANCI UNIVERSITÄT",
+    education_degree: "B.Sc. in Mechatronik",
+    cert_title: "📜 ZERTIFIZIERUNGEN"
+  }
+};
+
+function App() {
+  const [cvLang, setCvLang] = useState<CVLanguage>('tr');
+  const t = translations[cvLang];
+
+  const competencies = {
+    "Architecture": ["Enterprise RPA Design", "Solution Design Document (SDD)", "Infrastructure Scaling"],
+    "Automation Stack": ["UiPath (Advanced)", "n8n", "Microsoft Power Automate", "Blue Prism"],
+    "AI & ML": ["Azure AI Services", "Document Understanding", "LLM Integration", "Python"],
+    "Development": ["Python", "SQL", ".NET", "REST APIs", "Terraform"]
+  };
 
   return (
     <div className="cv-container">
+      {/* Global Language Switcher */}
+      <div className="global-lang-switcher">
+        <button className={cvLang === 'tr' ? 'active' : ''} onClick={() => setCvLang('tr')}>TR</button>
+        <button className={cvLang === 'en' ? 'active' : ''} onClick={() => setCvLang('en')}>EN</button>
+        <button className={cvLang === 'de' ? 'active' : ''} onClick={() => setCvLang('de')}>DE</button>
+      </div>
+
       <main className="cv-content">
         <div className="main-col">
           <section className="resume-section">
             <div className="readme-body">
               <header className="resume-header">
-                <h1>İRFAN DEMİRCİOĞLU</h1>
-                <p className="lead-text">
-                  <strong>Intelligent Automation Architect | Hyperautomation & AI Lead</strong>
-                </p>
+                <h1>{t.title}</h1>
+                <p className="lead-text"><strong>{t.role}</strong></p>
                 <div className="contact-bar">
-                  <span>📍 Istanbul, Turkey (Open to Relocation: Europe-wide)</span><br/>
+                  <span>📍 {t.relocation}</span><br/>
                   <span>📧 <a href="mailto:demircioglu.irfan@outlook.com">demircioglu.irfan@outlook.com</a></span> | 
-                  <span> 🔗 <a href="https://linkedin.com/in/irfandemircioglu/" target="_blank" rel="noreferrer">linkedin.com/in/irfandemircioglu</a></span> | 
-                  <span> 🌐 <a href="https://irfandemircioglu.com" target="_blank" rel="noreferrer">irfandemircioglu.com</a></span>
+                  <span> 🔗 <a href="https://linkedin.com/in/irfandemircioglu/">linkedin</a></span> | 
+                  <span> 🌐 <a href="https://irfandemircioglu.com">irfandemircioglu.com</a></span>
                 </div>
               </header>
 
               <hr />
 
               <section className="content-block">
-                <h2>🎯 PROFESSIONAL SUMMARY</h2>
-                <p>
-                  Strategic <strong>Intelligent Automation Leader</strong> with 7+ years of experience in architecting enterprise-scale automation ecosystems. 
-                  Proven track record at <strong>Akbank</strong> in leading RPA Centers of Excellence (CoE), integrating <strong>Generative AI (LLMs)</strong> with traditional RPA, and managing high-throughput robot fleets. 
-                  Expert in <strong>UiPath, Azure AI, and Power Platform</strong>, focusing on delivering measurable ROI and operational resilience through Hyperautomation.
-                </p>
+                <h2>{t.summary_title}</h2>
+                <p>{t.summary_text}</p>
               </section>
 
               <section className="content-block">
-                <h2 id="experience">💼 PROFESSIONAL EXPERIENCE</h2>
+                <h2>{t.experience_title}</h2>
                 
                 <div className="experience-item">
                   <div className="exp-header">
-                    <h3>AKBANK <span className="job-title">| RPA Manager / Lead Architect</span></h3>
+                    <h3>AKBANK <span className="job-title">| {t.akbank_role}</span></h3>
                     <span className="date">Dec 2022 – Present</span>
                   </div>
+                  <p style={{fontStyle: 'italic', marginBottom: '10px', color: '#656d76'}}>{t.akbank_focus}</p>
                   <ul>
-                  <li><strong>Enterprise Scale:</strong> Architected a high-density automation ecosystem, ensuring maximum resilience and peak performance for mission-critical banking operations.</li>
-                  <li><strong>Hyperautomation Strategy:</strong> Leading the evolution from traditional RPA to a comprehensive <strong>Hyperautomation</strong> framework, integrating Azure AI and Document Understanding to handle complex, unstructured data at scale.</li>
-                  <li><strong>Strategic ROI:</strong> Driving massive organizational capacity reclamation and transformative operational efficiency by identifying and automating high-impact financial workflows.</li>
-                  <li><strong>Governance & Leadership:</strong> Orchestrating a cross-functional CoE, establishing industry-standard best practices for code quality, security, and CI/CD pipelines in automation.</li>
+                    {t.akbank_points.map((point, i) => <li key={i}>{point}</li>)}
                   </ul>
                 </div>
 
                 <div className="experience-item">
                   <div className="exp-header">
-                    <h3>NTT DATA Business Solutions <span className="job-title">| Senior RPA Consultant</span></h3>
-                    <span className="date">Apr 2021 – Dec 2022</span>
-                  </div>
-                  <ul>
-                    <li>Designed end-to-end automation solutions for global clients using <strong>UiPath</strong> and <strong>Blue Prism</strong>.</li>
-                    <li>Implemented <strong>Process Mining</strong> to discover automation bottlenecks, reducing process discovery time by 40%.</li>
-                    <li>Mentored junior developers and established a standard "Automation Framework" used across 10+ enterprise projects.</li>
-                  </ul>
-                </div>
-
-                <div className="experience-item">
-                  <div className="exp-header">
-                    <h3>Itelligence / Novacore <span className="job-title">| RPA Consultant</span></h3>
-                    <span className="date">Jun 2018 – Apr 2021</span>
-                  </div>
-                  <ul>
-                    <li>Developed complex automation workflows for diverse industries, focusing on scalability and robust error handling.</li>
-                    <li>Integrated <strong>Power Automate</strong> with legacy systems to streamline back-office operations.</li>
-                  </ul>
-                </div>
-              </section>
-
-              <section className="content-block">
-                <h2 id="projects">🚀 TECHNICAL PROJECTS</h2>
-                <div className="project-grid">
-                  <div className="project-card">
-                    <h4>AI-Powered Customer Service</h4>
-                    <p>Integrated GPT-4 with UiPath to automate 60% of inbound email classifications and responses for high-volume support channels.</p>
-                  </div>
-                  <div className="project-card">
-                    <h4>Personalized Automation Platform</h4>
-                    <p>Built a custom orchestration layer using <strong>n8n</strong> and <strong>Python</strong> on <a href="https://irfandemircioglu.com">irfandemircioglu.com</a> to demonstrate open-source automation capabilities.</p>
+                    <h3>NTT DATA <span className="job-title">| Senior RPA Consultant</span></h3>
+                    <span className="date">2021 – 2022</span>
                   </div>
                 </div>
               </section>
 
               <section className="content-block">
-                <h2 id="education">🎓 EDUCATION</h2>
+                <h2>{t.education_title}</h2>
                 <div className="education-item">
                   <div className="exp-header">
-                    <h3>SABANCI UNIVERSITY <span className="job-title">| B.Sc. in Mechatronics Engineering</span></h3>
+                    <h3>{t.education_school} <span className="job-title">| {t.education_degree}</span></h3>
                     <span className="date">2012 – 2018</span>
                   </div>
-                  <ul>
-                    <li><strong>Full Scholarship (100% Merit-based)</strong></li>
-                    <li>Focus: Robotics, Automation Systems, and Control Engineering.</li>
-                  </ul>
                 </div>
               </section>
             </div>
@@ -121,48 +155,23 @@ function App() {
 
         <aside className="side-col">
           <div className="side-section">
-            <h3 className="side-title">About</h3>
-            <p className="side-desc">Transforming Enterprise through Intelligent Automation & AI. Specialized in Hyperautomation and ROI-driven architecture.</p>
-          </div>
-
-          <div className="side-section">
-            <h3 className="side-title">Core Competencies</h3>
-            {Object.entries(competencies).map(([category, list]) => (
-              <div key={category} className="skill-group">
-                <h4>{category}</h4>
+            <h3 className="side-title">{t.skills_title}</h3>
+            {Object.entries(competencies).map(([cat, list]) => (
+              <div key={cat} className="skill-group">
+                <h4>{cat}</h4>
                 <div className="skill-tags">
                   {list.map(s => <span key={s} className="tag">{s}</span>)}
                 </div>
               </div>
             ))}
           </div>
-
-          <div className="side-section">
-            <h3 className="side-title">Certifications</h3>
-            <ul className="cert-list">
-              {certifications.map(cert => (
-                <li key={cert.name} title={cert.name}>
-                  <span className="cert-icon">{cert.icon}</span>
-                  <span className="cert-name">{cert.name.replace('Microsoft Certified: ', '')}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div className="side-section">
             <h3 className="side-title">Languages</h3>
-            <div className="lang-stat">
-              <div className="lang-bar">
-                <div className="bar-fill tr" style={{width: '45%'}}></div>
-                <div className="bar-fill en" style={{width: '45%'}}></div>
-                <div className="bar-fill de" style={{width: '10%'}}></div>
-              </div>
-              <ul className="lang-list">
-                <li><span className="dot tr"></span> Turkish (Native)</li>
-                <li><span className="dot en"></span> English (Full Professional)</li>
-                <li><span className="dot de"></span> German (B1)</li>
-              </ul>
-            </div>
+            <ul className="lang-list">
+              <li>🇹🇷 Turkish (Native)</li>
+              <li>🇬🇧 English (C1)</li>
+              <li>🇩🇪 German (B1)</li>
+            </ul>
           </div>
         </aside>
       </main>
