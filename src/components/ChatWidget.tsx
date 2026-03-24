@@ -1,9 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Lottie from 'lottie-react';
 
-// Using a lightweight, reliable external Lottie JSON for a robot assistant
-const ROBOT_ANIMATION = "https://assets10.lottiefiles.com/packages/lf20_t9uclpxg.json";
-
 interface Message {
   text: string;
   sender: 'user' | 'bot';
