@@ -1,78 +1,105 @@
 import OpenAI from 'openai';
+import { createClient } from '@supabase/supabase-js';
 
-// In-memory rate limiting (Note: This is per execution environment instance)
-const rateLimitMap = new Map();
+// Supabase Initialization (Using environment variables for security)
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const openai = new OpenAI({
   apiKey: process.env.DEEPSEEK_API_KEY,
   baseURL: 'https://api.deepseek.com',
 });
 
-const SYSTEM_PROMPT = `
+// Sectoral Keywords to watch for
+const SECTOR_KEYWORDS = [
+  'HR', 'IK', 'FINANCE', 'FINANS', 'LOGISTICS', 'LOJISTIK', 'SUPPLY CHAIN', 
+  'RETAIL', 'PERAKENDE', 'BANKING', 'BANKACILIK', 'HEALTHCARE', 'SAGLIK', 
+  'MANUFACTURING', 'URETIM', 'RECRUITMENT', 'ISE ALIM', 'E-COMMERCE', 'E-TICARET'
+];
+
+const BASE_SYSTEM_PROMPT = `
 Sen İrfan Demircioğlu'nun Dijital Asistanısın. Görevin, İrfan'ın kariyeri, projeleri ve yetenekleri hakkında bilgi vermektir.
 
-KRİTİK KURALLAR:
-1. Sadece aşağıda sağlanan verileri kullan. Bilmediğin konularda "Bu konuda detaylı bilgim yok, ancak İrfan'ın [ilgili bir yeteneği] hakkında bilgi verebilirim" de.
-2. Siyaset, din, kişisel yaşam veya genel dünya haberleri gibi konulardaki soruları "Ben sadece İrfan'ın profesyonel geçmişi hakkında bilgi vermek üzere programlandım." diyerek nazikçe reddet.
-3. Tonun: Profesyonel, yardımsever ve kurumsal.
-4. Yanıtlarını kısa ve öz tut.
+DİL KURALLARI:
+- Kullanıcı hangi dilde yazarsa o dilde yanıt ver (İngilizce, Türkçe, Almanca vb.).
 
-İRFAN'IN VERİLERİ:
+HAFIZA VE PROAKTİFLİK KURALLARI:
+1. Eğer sana sağlanan bir "Kayıtlı Sektörel Proje" varsa, o projeyi İrfan'ın o alandaki gerçek deneyimi gibi profesyonelce anlat.
+2. Eğer "Kayıtlı Sektörel Proje" YOKSA ve soru belirli bir sektör (örn: İşe Alım, Lojistik, Finans) ile ilgiliyse; İrfan'ın UiPath, Azure AI ve Python yeteneklerini kullanarak o sektörde yapabileceği/yaptığı teknik olarak mantıklı bir projeyi <PROJECT_START>...<PROJECT_END> etiketleri arasında kurgula.
+3. Bu kurgulanan proje İrfan'ın mevcut yetenekleriyle (Document Understanding, RPA, LLM Integration) %100 uyumlu olmalı.
+4. Yanıtlarını profesyonel, yardımsever ve kurumsal bir tonda tut.
+
+İRFAN'IN ANA VERİLERİ:
 - Ünvan: Intelligent Automation Architect | Hyperautomation & AI Lead.
 - Uzmanlık: UiPath, Power Platform, Azure AI, Python, LLM Integration (LangChain), n8n.
-- Akbank Deneyimi: RPA Manager / Lead Architect. Enterprise Scale: Architected a high-density automation ecosystem. Hyperautomation Strategy: Leading evolution to Hyperautomation framework with Azure AI. Strategic ROI: Driving massive organizational capacity reclamation.
-- Önceki Deneyimler: NTT DATA (Senior RPA Consultant), Itelligence/Novacore (RPA Consultant).
+- Akbank Deneyimi: RPA Manager / Lead Architect. Enterprise Scale: High-density automation ecosystem. Hyperautomation Strategy: Azure AI Integration.
 - Eğitim: Sabancı Üniversitesi, Mekatronik Mühendisliği (%100 Burslu).
-- Sertifikalar: Microsoft Azure AI, Data & Fundamentals; UiPath Advanced Developer & Solution Architect.
-- Dil: Türkçe (Anadil), İngilizce (Full Professional Proficiency), Almanca (B1).
 `;
 
 export default async function handler(req, res) {
-  // CORS configuration
+  // CORS setup
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  const now = Date.now();
-
-  // Rate Limiting (3 requests per minute)
-  if (!rateLimitMap.has(clientIp)) {
-    rateLimitMap.set(clientIp, []);
-  }
-  const userRequests = rateLimitMap.get(clientIp).filter(t => now - t < 60000);
-  
-  if (userRequests.length >= 3) {
-    return res.status(429).json({ error: "Dakikalık soru limitine ulaştınız, lütfen 1 dakika bekleyin." });
-  }
-
-  userRequests.push(now);
-  rateLimitMap.set(clientIp, userRequests);
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { message } = req.body;
+  const upperMsg = message.toUpperCase();
+
+  // 1. Detect Keyword
+  const foundKeyword = SECTOR_KEYWORDS.find(kw => upperMsg.includes(kw));
+  let cachedProject = null;
 
   try {
-    const response = await openai.chat.completions.create({
+    if (foundKeyword) {
+      const { data } = await supabase
+        .from('ai_knowledge')
+        .select('project_content')
+        .eq('keyword', foundKeyword)
+        .maybeSingle();
+      
+      if (data) cachedProject = data.project_content;
+    }
+
+    // 2. Build Final Prompt
+    const finalPrompt = `${BASE_SYSTEM_PROMPT}\n\nSEKTÖREL DURUM: ${foundKeyword ? `Kullanıcı ${foundKeyword} sektörü hakkında soruyor.` : 'Genel soru.'}\nKayıtlı Sektörel Proje: ${cachedProject || 'Yok'}`;
+
+    const completion = await openai.chat.completions.create({
       model: 'deepseek-chat',
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: message },
+        { role: 'system', content: finalPrompt },
+        { role: 'user', content: message }
       ],
-      max_tokens: 500,
+      max_tokens: 800,
     });
 
-    return res.status(200).json({ response: response.choices[0].message.content });
+    let assistantResponse = completion.choices[0].message.content;
+
+    // 3. Store new project if generated
+    if (!cachedProject && foundKeyword && assistantResponse.includes('<PROJECT_START>')) {
+      const projectMatch = assistantResponse.match(/<PROJECT_START>([\s\S]*?)<PROJECT_END>/);
+      if (projectMatch && projectMatch[1]) {
+        const newProjectContent = projectMatch[1].trim();
+        
+        await supabase.from('ai_knowledge').insert([
+          { keyword: foundKeyword, project_content: newProjectContent }
+        ]);
+        
+        // Clean up the tags from the final response sent to the user
+        assistantResponse = assistantResponse.replace(/<PROJECT_START>[\s\S]*?<PROJECT_END>/g, newProjectContent);
+      }
+    }
+
+    // Ensure tags are removed even if storage fails or logic differs
+    assistantResponse = assistantResponse.replace(/<PROJECT_START>|<PROJECT_END>/g, '');
+
+    return res.status(200).json({ response: assistantResponse });
   } catch (error) {
-    console.error('DeepSeek Error:', error);
-    return res.status(500).json({ error: "İletişim sırasında bir hata oluştu." });
+    console.error('API Error:', error);
+    return res.status(500).json({ error: "Asistan şu an yanıt veremiyor, lütfen birazdan tekrar deneyin." });
   }
 }
