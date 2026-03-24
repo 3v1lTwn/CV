@@ -1,4 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
+import Lottie from 'lottie-react';
+
+// Using a lightweight, reliable external Lottie JSON for a robot assistant
+const ROBOT_ANIMATION = "https://assets10.lottiefiles.com/packages/lf20_t9uclpxg.json";
 
 interface Message {
   text: string;
@@ -30,7 +34,7 @@ const ChatWidget: React.FC = () => {
       tr: "Merhaba! Ben İrfan'ın Dijital Asistanıyım. Kariyeri ve projeleri hakkında her şeyi sorabilirsiniz.",
       en: "Hello! I am Irfan's Digital Assistant. You can ask me anything about his career and projects.",
       de: "Hallo! Ich bin Irfans digitaler Assistent. Sie können mich alles über seine Karriere und Projekte fragen.",
-      other: "Hello! Please ask your question in any language you prefer. I will follow your lead."
+      other: "Hello! Please ask your question in any language you prefer."
     };
     setMessages([{ text: welcomeMsgs[lang], sender: 'bot' }]);
   }, [lang]);
@@ -60,16 +64,10 @@ const ChatWidget: React.FC = () => {
         setMessages(prev => [...prev, { text: data.response, sender: 'bot' }]);
       }
     } catch (error) {
-      setMessages(prev => [...prev, { text: "Bağlantı hatası oluştu.", sender: 'bot', isError: true }]);
+      setMessages(prev => [...prev, { text: "Bağlantı hatası.", sender: 'bot', isError: true }]);
     } finally {
       setIsTyping(false);
     }
-  };
-
-  const getTypingText = () => {
-    if (lang === 'tr') return "Asistan düşünüyor...";
-    if (lang === 'de') return "Assistent denkt nach...";
-    return "Assistant is thinking...";
   };
 
   return (
@@ -81,10 +79,9 @@ const ChatWidget: React.FC = () => {
             <div className="bot-text-info">
               <span className="bot-name">Asistan</span>
               <div className="lang-selector">
-                <span className={lang === 'tr' ? 'active' : ''} onClick={() => setLang('tr')}>🇹🇷</span>
-                <span className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>🇬🇧</span>
-                <span className={lang === 'de' ? 'active' : ''} onClick={() => setLang('de')}>🇩🇪</span>
-                <span className={lang === 'other' ? 'active' : ''} onClick={() => setLang('other')}>🌐</span>
+                <span className={lang === 'tr' ? 'active' : ''} onClick={() => setLang('tr')}>TR</span>
+                <span className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>EN</span>
+                <span className={lang === 'de' ? 'active' : ''} onClick={() => setLang('de')}>DE</span>
               </div>
             </div>
           </div>
@@ -97,7 +94,7 @@ const ChatWidget: React.FC = () => {
               {msg.text}
             </div>
           ))}
-          {isTyping && <div className="typing-indicator">{getTypingText()}</div>}
+          {isTyping && <div className="typing-indicator">...</div>}
           <div ref={messagesEndRef} />
         </div>
 
@@ -105,28 +102,36 @@ const ChatWidget: React.FC = () => {
           <div className="input-area">
             <input 
               type="text" 
-              placeholder={questionsLeft > 0 ? (lang === 'tr' ? "Yazın..." : "Type...") : (lang === 'tr' ? "Limit doldu" : "Limit reached")} 
+              placeholder={questionsLeft > 0 ? "..." : "Limit"} 
               value={input}
               disabled={questionsLeft <= 0}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             />
             <button className="send-btn" onClick={handleSend} disabled={questionsLeft <= 0}>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-              </svg>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" /></svg>
             </button>
           </div>
           <div className="usage-stats">
-            <span className={`count-badge ${questionsLeft === 0 ? 'zero' : ''}`}>
-              {lang === 'tr' ? 'Hak:' : 'Limit:'} {questionsLeft}/3
-            </span>
+            <span className={`count-badge ${questionsLeft === 0 ? 'zero' : ''}`}>{questionsLeft}/3</span>
           </div>
         </div>
       </div>
 
       <button className={`chat-toggle pulsing ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? <span className="toggle-icon">×</span> : <span className="toggle-initials">İD</span>}
+        {isOpen ? (
+          <span className="toggle-icon">×</span>
+        ) : (
+          <div style={{ width: 80, height: 80, marginTop: -5 }}>
+            <Lottie 
+              animationData={{
+                "v": "5.5.7", "fr": 30, "ip": 0, "op": 60, "w": 100, "h": 100, "nm": "Robot", "ddd": 0,
+                "assets": [], "layers": [{"ddd": 0, "ind": 1, "ty": 4, "nm": "Circle", "sr": 1, "ks": {"o": {"a": 0, "k": 100}, "r": {"a": 0, "k": 0}, "p": {"a": 0, "k": [50, 50]}, "a": {"a": 0, "k": [0, 0]}, "s": {"a": 1, "k": [{"i": {"x": [0.667, 0.667], "y": [1, 1]}, "o": {"x": [0.333, 0.333], "y": [0, 0]}, "t": 0, "s": [80, 80]}, {"t": 30, "s": [100, 100]}, {"t": 60, "s": [80, 80]}]}}, "shapes": [{"ty": "gr", "it": [{"d": 1, "ty": "el", "s": {"a": 0, "k": [50, 50]}, "p": {"a": 0, "k": [0, 0]}, "nm": "Ellipse"}, {"ty": "fl", "c": {"a": 0, "k": [1, 1, 1, 1]}, "o": {"a": 0, "k": 100}, "nm": "Fill"}, {"ty": "tr", "p": {"a": 0, "k": [0, 0]}, "a": {"a": 0, "k": [0, 0]}, "s": {"a": 0, "k": [100, 100]}, "r": {"a": 0, "k": 0}, "o": {"a": 0, "k": 100}, "nm": "Transform"}]}]}]
+              }}
+              loop={true}
+            />
+          </div>
+        )}
       </button>
     </div>
   );
