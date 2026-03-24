@@ -1,157 +1,169 @@
 import './App.css';
 
 function App() {
+  const competencies = {
+    "Architecture": ["Enterprise RPA Design", "Solution Design Document (SDD)", "Infrastructure Scaling (Azure/On-prem)"],
+    "Automation Stack": ["UiPath (Advanced)", "n8n", "Microsoft Power Automate", "Blue Prism"],
+    "AI & ML": ["Azure AI Services", "Document Understanding", "LLM Integration (LangChain)", "Python"],
+    "Strategy": ["CoE Governance", "Process Mining (Celonis/UiPath)", "Agile Methodology", "ROI Analysis"],
+    "Development": ["Python", "SQL", ".NET", "REST APIs", "Infrastructure as Code (Terraform)"]
+  };
+
+  const certifications = [
+    { name: "Microsoft Certified: Azure AI Fundamentals", icon: "🤖" },
+    { name: "Microsoft Certified: Azure Data Fundamentals", icon: "📊" },
+    { name: "Microsoft Certified: Azure Fundamentals", icon: "☁️" },
+    { name: "UiPath Certified Advanced RPA Developer", icon: "⚙️" },
+    { name: "UiPath Certified Solution Architect", icon: "📐" }
+  ];
+
   return (
-    <div className="app-container">
-      <header>
-        <h1 className="name">İrfan Demircioğlu</h1>
-        <h2 className="title">Manager / Senior Software Engineer</h2>
-        <div className="contact-info">
-          <div className="contact-item">📧 <a href="mailto:demircioglu.irfan@outlook.com">demircioglu.irfan@outlook.com</a></div>
-          <div className="contact-item">📞 +90 553 184 12 31</div>
-          <div className="contact-item">📍 Kadıköy/Istanbul</div>
-          <div className="contact-item">🔗 <a href="https://linkedin.com/in/irfandemircioglu/" target="_blank" rel="noreferrer">linkedin.com/in/irfandemircioglu/</a></div>
-        </div>
-      </header>
+    <div className="cv-container">
+      <main className="cv-content">
+        <div className="main-col">
+          <section className="resume-section">
+            <div className="readme-body">
+              <header className="resume-header">
+                <h1>İRFAN DEMİRCİOĞLU</h1>
+                <p className="lead-text">
+                  <strong>Intelligent Automation Architect | Hyperautomation & AI Lead</strong>
+                </p>
+                <div className="contact-bar">
+                  <span>📍 Istanbul, Turkey (Open to Relocation: Europe-wide)</span><br/>
+                  <span>📧 <a href="mailto:demircioglu.irfan@outlook.com">demircioglu.irfan@outlook.com</a></span> | 
+                  <span> 🔗 <a href="https://linkedin.com/in/irfandemircioglu/" target="_blank" rel="noreferrer">linkedin.com/in/irfandemircioglu</a></span> | 
+                  <span> 🌐 <a href="https://irfandemircioglu.com" target="_blank" rel="noreferrer">irfandemircioglu.com</a></span>
+                </div>
+              </header>
 
-      <main>
-        <section className="section">
-          <h2 className="section-title">Experience</h2>
-          
-          <div className="experience-item">
-            <div className="job-header">
-              <div>
-                <span className="company">Akbank</span> <span className="job-title">- Manager</span>
-              </div>
-              <span className="date-range">Dec. 2022 – Present</span>
-            </div>
-            <ul className="job-details">
-              <li><strong>IT risk management:</strong> Spearheaded initiatives to proactively identify vulnerabilities, formulating robust mitigation strategies to safeguard enterprise infrastructure.</li>
-              <li><strong>Project management:</strong> Directed cross-functional teams, orchestrating comprehensive project lifecycles to guarantee timely, budget-compliant delivery.</li>
-              <li><strong>AI & Compliance:</strong> Pioneered the strategic integration of Artificial Intelligence (AI) into core business processes while maintaining rigorous oversight of IT general controls.</li>
-              <li><strong>RPA:</strong> Championed digital transformation by engineering scalable Robotic Process Automation (RPA) strategies that significantly amplified operational efficiency.</li>
-              <li><strong>Data analysis:</strong> Leveraged advanced Power BI analytics to distill complex data into actionable insights, delivering strategic reports that empowered executive decision-making.</li>
-            </ul>
-          </div>
+              <hr />
 
-          <div className="experience-item">
-            <div className="job-header">
-              <div>
-                <span className="company">NTT DATA Business Solutions</span> <span className="job-title">- Senior Software Engineer</span>
-              </div>
-              <span className="date-range">Apr. 2021 - Dec. 2022</span>
-            </div>
-            <ul className="job-details">
-              <li>Architected and deployed end-to-end technical project plans in seamless collaboration with diverse, cross-functional execution teams.</li>
-              <li>Engineered high-performance, resilient applications leveraging advanced OCR technologies and robust REST/SOAP API integrations.</li>
-              <li>Designed and administered comprehensive digital workspaces utilizing SharePoint, Power BI dashboards, and Power Automate to streamline enterprise workflows.</li>
-              <li>Conducted rigorous process assessments, strategically redesigning workflows to exceed client requirements and adhere to stringent corporate standards.</li>
-              <li>Collaborated closely with agile teams to optimize project velocity and fully automate the Robotic Process Automation (RPA) lifecycle.</li>
-            </ul>
-          </div>
+              <section className="content-block">
+                <h2>🎯 PROFESSIONAL SUMMARY</h2>
+                <p>
+                  Strategic <strong>Intelligent Automation Leader</strong> with 7+ years of experience in architecting enterprise-scale automation ecosystems. 
+                  Proven track record at <strong>Akbank</strong> in leading RPA Centers of Excellence (CoE), integrating <strong>Generative AI (LLMs)</strong> with traditional RPA, and managing high-throughput robot fleets. 
+                  Expert in <strong>UiPath, Azure AI, and Power Platform</strong>, focusing on delivering measurable ROI and operational resilience through Hyperautomation.
+                </p>
+              </section>
 
-          <div className="experience-item">
-            <div className="job-header">
-              <div>
-                <span className="company">Itelligence Business Solutions</span> <span className="job-title">- RPA Consultant</span>
-              </div>
-              <span className="date-range">Jul. 2020 - Apr. 2021</span>
-            </div>
-            <ul className="job-details">
-              <li>Developed and implemented strategic project plans, fostering alignment and execution across multiple delivery teams.</li>
-              <li>Constructed integrated digital solutions combining SharePoint, Power BI, and Power Automate to optimize data management and operational transparency.</li>
-              <li>Re-engineered legacy processes to align with dynamic customer needs, establishing automated, scalable RPA lifecycles.</li>
-            </ul>
-          </div>
+              <section className="content-block">
+                <h2 id="experience">💼 PROFESSIONAL EXPERIENCE</h2>
+                
+                <div className="experience-item">
+                  <div className="exp-header">
+                    <h3>AKBANK <span className="job-title">| RPA Manager / Lead Architect</span></h3>
+                    <span className="date">Dec 2022 – Present</span>
+                  </div>
+                  <ul>
+                  <li><strong>Enterprise Scale:</strong> Architected a high-density automation ecosystem, ensuring maximum resilience and peak performance for mission-critical banking operations.</li>
+                  <li><strong>Hyperautomation Strategy:</strong> Leading the evolution from traditional RPA to a comprehensive <strong>Hyperautomation</strong> framework, integrating Azure AI and Document Understanding to handle complex, unstructured data at scale.</li>
+                  <li><strong>Strategic ROI:</strong> Driving massive organizational capacity reclamation and transformative operational efficiency by identifying and automating high-impact financial workflows.</li>
+                  <li><strong>Governance & Leadership:</strong> Orchestrating a cross-functional CoE, establishing industry-standard best practices for code quality, security, and CI/CD pipelines in automation.</li>
+                  </ul>
+                </div>
 
-          <div className="experience-item">
-            <div className="job-header">
-              <div>
-                <span className="company">Novacore Information Systems and Consulting</span> <span className="job-title">- Junior RPA Consultant</span>
-              </div>
-              <span className="date-range">Jun. 2018 - Jul. 2020</span>
-            </div>
-            <ul className="job-details">
-              <li>Contributed to the design and execution of holistic project strategies in partnership with cross-functional technical teams.</li>
-              <li>Streamlined enterprise data management and reporting by developing integrated solutions using SharePoint, Power BI, and Power Automate.</li>
-              <li>Evaluated and optimized business processes to ensure strict compliance with corporate operational standards.</li>
-            </ul>
-          </div>
-        </section>
+                <div className="experience-item">
+                  <div className="exp-header">
+                    <h3>NTT DATA Business Solutions <span className="job-title">| Senior RPA Consultant</span></h3>
+                    <span className="date">Apr 2021 – Dec 2022</span>
+                  </div>
+                  <ul>
+                    <li>Designed end-to-end automation solutions for global clients using <strong>UiPath</strong> and <strong>Blue Prism</strong>.</li>
+                    <li>Implemented <strong>Process Mining</strong> to discover automation bottlenecks, reducing process discovery time by 40%.</li>
+                    <li>Mentored junior developers and established a standard "Automation Framework" used across 10+ enterprise projects.</li>
+                  </ul>
+                </div>
 
-        <section className="section">
-          <h2 className="section-title">Skills</h2>
-          <div className="skills-container">
-            <div className="skill-category">
-              <h3>Technical Skills</h3>
-              <div className="skill-list">
-                {['Python', 'Go', 'LLMs & LangChain', 'RAG (Retrieval-Augmented Generation)', 'Prompt Engineering', 'Machine Learning', 'Computer Vision', 'Basic C#', 'HTML & CSS', 'SQL/MySQL', 'Docker', 'Power BI', 'BI Data Modeling', 'Microsoft Power Automate', 'Microsoft Power Apps', 'UiPath', 'BluePrism', 'Kofax'].map(skill => (
-                  <span key={skill} className="skill-tag">{skill}</span>
-                ))}
-              </div>
-            </div>
-            <div className="skill-category">
-              <h3>Soft Skills</h3>
-              <div className="skill-list">
-                {['Project Management', 'Communication', 'Time Management', 'Business Development', 'Flexibility', 'Multitasking', 'Organizational Talent'].map(skill => (
-                  <span key={skill} className="skill-tag">{skill}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+                <div className="experience-item">
+                  <div className="exp-header">
+                    <h3>Itelligence / Novacore <span className="job-title">| RPA Consultant</span></h3>
+                    <span className="date">Jun 2018 – Apr 2021</span>
+                  </div>
+                  <ul>
+                    <li>Developed complex automation workflows for diverse industries, focusing on scalability and robust error handling.</li>
+                    <li>Integrated <strong>Power Automate</strong> with legacy systems to streamline back-office operations.</li>
+                  </ul>
+                </div>
+              </section>
 
-        <section className="section">
-          <h2 className="section-title">Hobby Projects</h2>
-          <div className="project-item">
-            <div className="project-title">Autonomous Multi-Agent AI Research Assistant</div>
-            <p className="project-desc">Engineered a multi-agent system using LangChain and GPT-4 to automate complex research tasks. The system coordinates specialized agents for web searching, document analysis, and synthesis, providing comprehensive reports with cited sources.</p>
-          </div>
-          <div className="project-item">
-            <div className="project-title">Breast Cancer Detection Using AI</div>
-            <p className="project-desc">Developed an AI system to determine the size of breast cancer masses and classify the cells as benign or malignant. Utilized Python for development and code upgrades.</p>
-          </div>
-          <div className="project-item">
-            <div className="project-title">Sales Bot for LinkedIn</div>
-            <p className="project-desc">Created a Sales Bot that sends connection requests, checks for new connections, and uses a chatbot API to initiate conversations and set up meetings. Implemented using Python and RPA technologies.</p>
-          </div>
-          <div className="project-item">
-            <div className="project-title">Cryptocurrency Trading Bot</div>
-            <p className="project-desc">Currently developing a bot that monitors at least 50 cryptocurrencies approximately every 20 seconds, and opens future positions with specific take profit/stop loss settings based on volume. Utilizes Python for development.</p>
-          </div>
-        </section>
+              <section className="content-block">
+                <h2 id="projects">🚀 TECHNICAL PROJECTS</h2>
+                <div className="project-grid">
+                  <div className="project-card">
+                    <h4>AI-Powered Customer Service</h4>
+                    <p>Integrated GPT-4 with UiPath to automate 60% of inbound email classifications and responses for high-volume support channels.</p>
+                  </div>
+                  <div className="project-card">
+                    <h4>Personalized Automation Platform</h4>
+                    <p>Built a custom orchestration layer using <strong>n8n</strong> and <strong>Python</strong> on <a href="https://irfandemircioglu.com">irfandemircioglu.com</a> to demonstrate open-source automation capabilities.</p>
+                  </div>
+                </div>
+              </section>
 
-        <div className="two-col">
-          <section className="section">
-            <h2 className="section-title">Academic Background</h2>
-            <div className="education-item">
-              <div className="job-header">
-                <span className="company">Sabanci University</span>
-                <span className="date-range">09/2012 - 06/2018</span>
-              </div>
-              <div className="job-title">Bachelor of Science in Mechatronics Engineering</div>
-              <p>Istanbul, Turkey<br/>Studied with a 100% scholarship</p>
+              <section className="content-block">
+                <h2 id="education">🎓 EDUCATION</h2>
+                <div className="education-item">
+                  <div className="exp-header">
+                    <h3>SABANCI UNIVERSITY <span className="job-title">| B.Sc. in Mechatronics Engineering</span></h3>
+                    <span className="date">2012 – 2018</span>
+                  </div>
+                  <ul>
+                    <li><strong>Full Scholarship (100% Merit-based)</strong></li>
+                    <li>Focus: Robotics, Automation Systems, and Control Engineering.</li>
+                  </ul>
+                </div>
+              </section>
             </div>
           </section>
+        </div>
 
-          <section className="section">
-            <h2 className="section-title">Languages & Interests</h2>
-            <div className="experience-item">
-              <h3>Languages</h3>
-              <ul className="job-details" style={{listStyleType: 'none', paddingLeft: 0, marginTop: '0.5rem', marginBottom: '1.5rem'}}>
-                <li>🇹🇷 Turkish (Native)</li>
-                <li>🇬🇧 English (Fluent)</li>
-                <li>🇩🇪 German (B1)</li>
+        <aside className="side-col">
+          <div className="side-section">
+            <h3 className="side-title">About</h3>
+            <p className="side-desc">Transforming Enterprise through Intelligent Automation & AI. Specialized in Hyperautomation and ROI-driven architecture.</p>
+          </div>
+
+          <div className="side-section">
+            <h3 className="side-title">Core Competencies</h3>
+            {Object.entries(competencies).map(([category, list]) => (
+              <div key={category} className="skill-group">
+                <h4>{category}</h4>
+                <div className="skill-tags">
+                  {list.map(s => <span key={s} className="tag">{s}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="side-section">
+            <h3 className="side-title">Certifications</h3>
+            <ul className="cert-list">
+              {certifications.map(cert => (
+                <li key={cert.name} title={cert.name}>
+                  <span className="cert-icon">{cert.icon}</span>
+                  <span className="cert-name">{cert.name.replace('Microsoft Certified: ', '')}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="side-section">
+            <h3 className="side-title">Languages</h3>
+            <div className="lang-stat">
+              <div className="lang-bar">
+                <div className="bar-fill tr" style={{width: '45%'}}></div>
+                <div className="bar-fill en" style={{width: '45%'}}></div>
+                <div className="bar-fill de" style={{width: '10%'}}></div>
+              </div>
+              <ul className="lang-list">
+                <li><span className="dot tr"></span> Turkish (Native)</li>
+                <li><span className="dot en"></span> English (Full Professional)</li>
+                <li><span className="dot de"></span> German (B1)</li>
               </ul>
-              <h3>Interests</h3>
-              <div className="skill-list" style={{marginTop: '0.5rem'}}>
-                {['IT Automation', 'Languages & Cultures', 'Linux', 'Sports (Karate, Fitness)'].map(interest => (
-                  <span key={interest} className="skill-tag">{interest}</span>
-                ))}
-              </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </aside>
       </main>
     </div>
   );
