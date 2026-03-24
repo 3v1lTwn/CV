@@ -9,7 +9,7 @@ interface Message {
 
 type Language = 'tr' | 'en' | 'de' | 'other';
 
-const ChatWidget: React.FC = () => {
+const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [lang, setLang] = useState<Language>('tr');
   const [questionsLeft, setQuestionsLeft] = useState(3);
@@ -55,13 +55,15 @@ const ChatWidget: React.FC = () => {
       const data = await response.json();
       
       if (response.status === 429) {
-        setMessages(prev => [...prev, { text: data.error, sender: 'bot', isError: true }]);
+        setMessages(prev => [...prev, { text: data.error || "Limit aşıldı.", sender: 'bot', isError: true }]);
         setQuestionsLeft(0);
+      } else if (!response.ok) {
+        throw new Error(data.error || "Sunucu hatası");
       } else {
         setMessages(prev => [...prev, { text: data.response, sender: 'bot' }]);
       }
-    } catch (error) {
-      setMessages(prev => [...prev, { text: "Bağlantı hatası.", sender: 'bot', isError: true }]);
+    } catch (error: any) {
+      setMessages(prev => [...prev, { text: error.message || "Bağlantı hatası.", sender: 'bot', isError: true }]);
     } finally {
       setIsTyping(false);
     }
@@ -79,6 +81,7 @@ const ChatWidget: React.FC = () => {
                 <span className={lang === 'tr' ? 'active' : ''} onClick={() => setLang('tr')}>TR</span>
                 <span className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>EN</span>
                 <span className={lang === 'de' ? 'active' : ''} onClick={() => setLang('de')}>DE</span>
+                <span className={lang === 'other' ? 'active' : ''} onClick={() => setLang('other')}>🌐</span>
               </div>
             </div>
           </div>
