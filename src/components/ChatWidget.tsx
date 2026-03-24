@@ -30,7 +30,7 @@ const ChatWidget: React.FC = () => {
       tr: "Merhaba! Ben İrfan'ın Dijital Asistanıyım. Kariyeri ve projeleri hakkında her şeyi sorabilirsiniz.",
       en: "Hello! I am Irfan's Digital Assistant. You can ask me anything about his career and projects.",
       de: "Hallo! Ich bin Irfans digitaler Assistent. Sie können mich alles über seine Karriere und Projekte fragen.",
-      other: "Hello! Please ask your question in any language you prefer."
+      other: "Hello! Please ask your question in any language you prefer. I will follow your lead."
     };
     setMessages([{ text: welcomeMsgs[lang], sender: 'bot' }]);
   }, [lang]);
@@ -74,17 +74,17 @@ const ChatWidget: React.FC = () => {
 
   return (
     <div className="chat-widget-container">
-      {/* Chat Window with Slide-in Animation via CSS class */}
       <div className={`chat-window ${isOpen ? 'open' : ''}`}>
         <div className="chat-header">
           <div className="bot-info">
             <span className="bot-avatar">🤖</span>
             <div className="bot-text-info">
-              <span className="bot-name">İrfan'ın Asistanı</span>
+              <span className="bot-name">Asistan</span>
               <div className="lang-selector">
                 <span className={lang === 'tr' ? 'active' : ''} onClick={() => setLang('tr')}>🇹🇷</span>
                 <span className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')}>🇬🇧</span>
                 <span className={lang === 'de' ? 'active' : ''} onClick={() => setLang('de')}>🇩🇪</span>
+                <span className={lang === 'other' ? 'active' : ''} onClick={() => setLang('other')}>🌐</span>
               </div>
             </div>
           </div>
@@ -119,19 +119,14 @@ const ChatWidget: React.FC = () => {
           </div>
           <div className="usage-stats">
             <span className={`count-badge ${questionsLeft === 0 ? 'zero' : ''}`}>
-              {lang === 'tr' ? 'Kalan Hak:' : 'Remaining:'} {questionsLeft}
+              {lang === 'tr' ? 'Hak:' : 'Limit:'} {questionsLeft}/3
             </span>
           </div>
         </div>
       </div>
 
-      {/* Toggle Button with Initials and Pulse Effect */}
       <button className={`chat-toggle pulsing ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? (
-          <span className="toggle-icon">×</span>
-        ) : (
-          <span className="toggle-initials">İD</span>
-        )}
+        {isOpen ? <span className="toggle-icon">×</span> : <span className="toggle-initials">İD</span>}
       </button>
     </div>
   );

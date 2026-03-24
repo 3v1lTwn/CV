@@ -21,12 +21,26 @@ const translations = {
       "CoE Governance & Strategy: Geliştirme standartlarını, kod güvenliği protokollerini ve operasyonel verimlilik metriklerini belirleyerek kurumsal düzeyde bir yönetişim modeli uyguluyorum.",
       "Cross-Functional Impact: Hazine, Operasyon ve Kredi süreçlerinde karmaşık iş akışlarını optimize ederek ölçülebilir verimlilik artışı ve risk azaltımı sağlıyorum."
     ],
+    ntt_role: "Kıdemli Yazılım Mühendisi / RPA Danışmanı",
+    ntt_points: [
+      "Küresel müşteriler için UiPath ve Blue Prism kullanarak uçtan uca otomasyon çözümleri tasarlandı.",
+      "Otomasyon darboğazlarını tespit etmek için Process Mining (Celonis) uygulandı ve süreç keşif süresi %40 azaltıldı.",
+      "10'dan fazla kurumsal projede kullanılan standart bir 'Otomasyon Çerçevesi' oluşturuldu."
+    ],
     skills_title: "🛠️ YETENEKLER",
+    competencies: {
+      "Mimari": ["Kurumsal RPA Tasarımı", "Çözüm Tasarım Belgesi (SDD)", "Altyapı Ölçekleme"],
+      "Otomasyon": ["UiPath (Advanced)", "n8n", "Microsoft Power Automate", "Blue Prism"],
+      "AI & ML": ["Azure AI Servisleri", "Document Understanding", "LLM Entegrasyonu", "Python"],
+      "Geliştirme": ["Python", "SQL", ".NET", "REST APIs", "Terraform"]
+    },
     projects_title: "🚀 TEKNİK PROJELER",
     education_title: "🎓 EĞİTİM",
     education_school: "SABANCI ÜNİVERSİTESİ",
-    education_degree: "Mekatronik Mühendisliği Lisans",
-    cert_title: "📜 SERTİFİKALAR"
+    education_degree: "Mekatronik Mühendisliği Lisans (%100 Burslu)",
+    cert_title: "📜 SERTİFİKALAR",
+    lang_title: "Diller",
+    lang_list: ["🇹🇷 Türkçe (Anadil)", "🇬🇧 İngilizce (C1)", "🇩🇪 Almanca (B1)"]
   },
   en: {
     title: "İRFAN DEMİRCİOĞLU",
@@ -44,35 +58,63 @@ const translations = {
       "CoE Governance & Strategy: Implementing a corporate governance model by setting development standards, security protocols, and efficiency metrics.",
       "Cross-Functional Impact: Optimizing complex workflows across Treasury, Operations, and Credits to reduce risk and increase measurable efficiency."
     ],
+    ntt_role: "Senior Software Engineer / RPA Consultant",
+    ntt_points: [
+      "Designed end-to-end automation solutions for global clients using UiPath and Blue Prism.",
+      "Implemented Process Mining to discover automation bottlenecks, reducing process discovery time by 40%.",
+      "Established a standard 'Automation Framework' used across 10+ enterprise projects."
+    ],
     skills_title: "🛠️ SKILLS",
+    competencies: {
+      "Architecture": ["Enterprise RPA Design", "Solution Design Document (SDD)", "Infrastructure Scaling"],
+      "Automation Stack": ["UiPath (Advanced)", "n8n", "Microsoft Power Automate", "Blue Prism"],
+      "AI & ML": ["Azure AI Services", "Document Understanding", "LLM Integration", "Python"],
+      "Development": ["Python", "SQL", ".NET", "REST APIs", "Terraform"]
+    },
     projects_title: "🚀 TECHNICAL PROJECTS",
     education_title: "🎓 EDUCATION",
     education_school: "SABANCI UNIVERSITY",
-    education_degree: "B.Sc. in Mechatronics Engineering",
-    cert_title: "📜 CERTIFICATIONS"
+    education_degree: "B.Sc. in Mechatronics Engineering (Full Scholarship)",
+    cert_title: "📜 CERTIFICATIONS",
+    lang_title: "Languages",
+    lang_list: ["🇹🇷 Turkish (Native)", "🇬🇧 English (C1)", "🇩🇪 German (B1)"]
   },
   de: {
     title: "İRFAN DEMİRCİOĞLU",
     role: "Intelligent Automation Architect | Hyperautomation & AI Lead",
     relocation: "Istanbul, Türkei (Umzug: Europaweit)",
     summary_title: "🎯 ZUSAMMENFASSUNG",
-    summary_text: "Strategischer Intelligent Automation Leader mit über 7 Jahren Erfahrung. Experte für UiPath, Azure AI und Power Platform mit Fokus auf Hyperautomation und KI-Integration.",
+    summary_text: "Strategischer Intelligent Automation Leader mit über 7 Jahren Erfahrung. Experte für UiPath, Azure AI und Power Platform mit Fokus auf Hyperautomation ve KI-Integration.",
     experience_title: "💼 BERUFSERFAHRUNG",
     akbank_role: "Intelligent Automation Lead & Architect",
-    akbank_focus: "Strategischer Fokus: Orchestrierung, Governance und Hyperautomatisierung auf Unternehmensebene.",
+    akbank_focus: "Strategischer Fokus: Orchestrierung, Governance und Hyperautomatisierung.",
     akbank_points: [
-      "Orchestrierung auf Unternehmensebene: Management des gesamten Lebenszyklus einer massiven Automatisierungsflotte.",
+      "Orchestrierung auf Unternehmensebene: Management des Lebenszyklus einer massiven Automatisierungsflotte.",
       "Hochverfügbarkeitsarchitektur: Entwicklung einer belastbaren Infrastruktur für geschäftskritische Bankgeschäfte.",
       "Hyperautomation Transformation: Integration von RPA mit GenAI (LLM) und Azure AI Services.",
-      "CoE Governance & Strategie: Implementierung eines Governance-Modells für Entwicklungsstandards und Sicherheit.",
+      "CoE Governance & Strategie: Implementierung eines Governance-Modells für Entwicklungsstandards.",
       "Cross-Functional Impact: Optimierung komplexer Workflows zur Steigerung der messbaren Effizienz."
     ],
-    skills_title: "🛠️ FÄHIGKEİTEN",
+    ntt_role: "Senior Software Engineer / RPA Berater",
+    ntt_points: [
+      "Entwicklung von End-to-End-Automatisierungslösungen für globale Kunden.",
+      "Implementierung von Process Mining zur Identifizierung von Engpässen.",
+      "Etablierung eines standardisierten Frameworks für über 10 Unternehmensprojekte."
+    ],
+    skills_title: "🛠️ FÄHIGKEITEN",
+    competencies: {
+      "Architektur": ["Enterprise RPA Design", "Solution Design Document (SDD)", "Infrastruktur-Skalierung"],
+      "Automatisierung": ["UiPath (Advanced)", "n8n", "Microsoft Power Automate", "Blue Prism"],
+      "KI & ML": ["Azure AI Services", "Document Understanding", "LLM Integration", "Python"],
+      "Entwicklung": ["Python", "SQL", ".NET", "REST APIs", "Terraform"]
+    },
     projects_title: "🚀 PROJEKTE",
     education_title: "🎓 BILDUNG",
     education_school: "SABANCI UNIVERSITÄT",
-    education_degree: "B.Sc. in Mechatronik",
-    cert_title: "📜 ZERTIFIZIERUNGEN"
+    education_degree: "B.Sc. in Mechatronik (Vollstipendium)",
+    cert_title: "📜 ZERTIFIZIERUNGEN",
+    lang_title: "Sprachen",
+    lang_list: ["🇹🇷 Türkisch (Muttersprache)", "🇬🇧 Englisch (C1)", "🇩🇪 Deutsch (B1)"]
   }
 };
 
@@ -80,20 +122,12 @@ function App() {
   const [cvLang, setCvLang] = useState<CVLanguage>('tr');
   const t = translations[cvLang];
 
-  const competencies = {
-    "Architecture": ["Enterprise RPA Design", "Solution Design Document (SDD)", "Infrastructure Scaling"],
-    "Automation Stack": ["UiPath (Advanced)", "n8n", "Microsoft Power Automate", "Blue Prism"],
-    "AI & ML": ["Azure AI Services", "Document Understanding", "LLM Integration", "Python"],
-    "Development": ["Python", "SQL", ".NET", "REST APIs", "Terraform"]
-  };
-
   return (
     <div className="cv-container">
-      {/* Global Language Switcher */}
       <div className="global-lang-switcher">
-        <button className={cvLang === 'tr' ? 'active' : ''} onClick={() => setCvLang('tr')}>TR</button>
-        <button className={cvLang === 'en' ? 'active' : ''} onClick={() => setCvLang('en')}>EN</button>
-        <button className={cvLang === 'de' ? 'active' : ''} onClick={() => setCvLang('de')}>DE</button>
+        <button className={cvLang === 'tr' ? 'active' : ''} onClick={() => setCvLang('tr')}>🇹🇷 TR</button>
+        <button className={cvLang === 'en' ? 'active' : ''} onClick={() => setCvLang('en')}>🇬🇧 EN</button>
+        <button className={cvLang === 'de' ? 'active' : ''} onClick={() => setCvLang('de')}>🇩🇪 DE</button>
       </div>
 
       <main className="cv-content">
@@ -126,7 +160,7 @@ function App() {
                     <h3>AKBANK <span className="job-title">| {t.akbank_role}</span></h3>
                     <span className="date">Dec 2022 – Present</span>
                   </div>
-                  <p style={{fontStyle: 'italic', marginBottom: '10px', color: '#656d76'}}>{t.akbank_focus}</p>
+                  <p style={{fontStyle: 'italic', marginBottom: '10px', color: '#656d76', fontSize: '14px'}}>{t.akbank_focus}</p>
                   <ul>
                     {t.akbank_points.map((point, i) => <li key={i}>{point}</li>)}
                   </ul>
@@ -134,9 +168,12 @@ function App() {
 
                 <div className="experience-item">
                   <div className="exp-header">
-                    <h3>NTT DATA <span className="job-title">| Senior RPA Consultant</span></h3>
-                    <span className="date">2021 – 2022</span>
+                    <h3>NTT DATA <span className="job-title">| {t.ntt_role}</span></h3>
+                    <span className="date">Apr 2021 – Dec 2022</span>
                   </div>
+                  <ul>
+                    {t.ntt_points.map((point, i) => <li key={i}>{point}</li>)}
+                  </ul>
                 </div>
               </section>
 
@@ -156,7 +193,7 @@ function App() {
         <aside className="side-col">
           <div className="side-section">
             <h3 className="side-title">{t.skills_title}</h3>
-            {Object.entries(competencies).map(([cat, list]) => (
+            {Object.entries(t.competencies).map(([cat, list]) => (
               <div key={cat} className="skill-group">
                 <h4>{cat}</h4>
                 <div className="skill-tags">
@@ -166,11 +203,9 @@ function App() {
             ))}
           </div>
           <div className="side-section">
-            <h3 className="side-title">Languages</h3>
+            <h3 className="side-title">{t.lang_title}</h3>
             <ul className="lang-list">
-              <li>🇹🇷 Turkish (Native)</li>
-              <li>🇬🇧 English (C1)</li>
-              <li>🇩🇪 German (B1)</li>
+              {t.lang_list.map(l => <li key={l}>{l}</li>)}
             </ul>
           </div>
         </aside>
