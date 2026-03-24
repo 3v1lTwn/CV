@@ -227,8 +227,202 @@ hr {
 .dot.en { background-color: #3178c6; }
 .dot.de { background-color: #008b8b; }
 
-@media (max-width: 850px) {
-  .cv-content { grid-template-columns: 1fr; }
-  .cv-container { margin: 20px auto; }
-  .project-grid { grid-template-columns: 1fr; }
+/* Chat Widget Container */
+.chat-widget-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  font-family: var(--gh-font);
+}
+
+/* Chat Toggle Button */
+.chat-toggle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--gh-link);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.chat-toggle:hover {
+  transform: scale(1.05);
+  background-color: #085bc1;
+}
+
+.chat-toggle.active {
+  transform: rotate(90deg);
+}
+
+/* Chat Window */
+.chat-window {
+  position: absolute;
+  bottom: 72px;
+  right: 0;
+  width: 360px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--gh-border);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Chat Header */
+.chat-header {
+  padding: 16px;
+  background-color: #f6f8fa;
+  border-bottom: 1px solid var(--gh-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bot-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bot-avatar { font-size: 24px; }
+
+.bot-text-info { display: flex; flex-direction: column; }
+
+.bot-name { font-weight: 600; font-size: 14px; color: var(--gh-text-main); }
+
+.bot-status { font-size: 11px; color: #2da44e; display: flex; align-items: center; gap: 4px; }
+
+.bot-status::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: #2da44e;
+  border-radius: 50%;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--gh-text-secondary);
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+/* Chat Messages */
+.chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #ffffff;
+}
+
+.message-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 18px;
+  line-height: 1.4;
+}
+
+.bot-bubble {
+  align-self: flex-start;
+  background-color: #f3f4f6;
+  color: #1f2328;
+  border-bottom-left-radius: 4px;
+}
+
+.user-bubble {
+  align-self: flex-end;
+  background-color: var(--gh-link);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.error-bubble {
+  background-color: #ffebe9;
+  color: #cf222e;
+  border: 1px solid rgba(207, 34, 46, 0.1);
+}
+
+.typing-indicator {
+  font-size: 12px;
+  color: var(--gh-text-secondary);
+  font-style: italic;
+  margin-left: 8px;
+}
+
+/* Chat Footer */
+.chat-footer {
+  padding: 16px;
+  background-color: #ffffff;
+  border-top: 1px solid var(--gh-border);
+}
+
+.input-area {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-area input {
+  flex: 1;
+  border: 1px solid var(--gh-border);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-area input:focus {
+  border-color: var(--gh-link);
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+}
+
+.send-btn {
+  background-color: var(--gh-link);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.send-btn:hover { background-color: #085bc1; }
+
+.limit-disclaimer {
+  font-size: 10px;
+  color: var(--gh-text-secondary);
+  text-align: center;
+  margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+  .chat-window {
+    width: calc(100vw - 40px);
+    height: 400px;
+  }
 }

@@ -1,4 +1,5 @@
 import './App.css';
+import ChatWidget from './components/ChatWidget';
 
 function App() {
   const competencies = {
@@ -165,6 +166,7 @@ function App() {
           </div>
         </aside>
       </main>
+      <ChatWidget />
     </div>
   );
 }
