@@ -6,8 +6,11 @@ interface Message {
   isError?: boolean;
 }
 
+type Language = 'tr' | 'en' | 'de' | 'other';
+
 const ChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [lang, setLang] = useState<Language>('tr');
   const [messages, setMessages] = useState<Message[]>([
     { text: "Merhaba! Ben İrfan'ın Dijital Asistanıyım. Kariyeri ve projeleri hakkında merak ettiğiniz her şeyi sorabilirsiniz.", sender: 'bot' }
   ]);
@@ -23,6 +26,17 @@ const ChatWidget: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Dil değiştiğinde botun ilk mesajını güncelle
+  useEffect(() => {
+    const welcomeMsgs = {
+      tr: "Merhaba! Ben İrfan'ın Dijital Asistanıyım. Kariyeri ve projeleri hakkında her şeyi sorabilirsiniz.",
+      en: "Hello! I am Irfan's Digital Assistant. You can ask me anything about his career and projects.",
+      de: "Hallo! Ich bin Irfans digitaler Assistent. Sie können mich alles über seine Karriere und Projekte fragen.",
+      other: "Hello! Please ask your question in any language you prefer."
+    };
+    setMessages([{ text: welcomeMsgs[lang], sender: 'bot' }]);
+  }, [lang]);
+
   const handleSend = async () => {
     if (!input.trim()) return;
 
@@ -35,7 +49,7 @@ const ChatWidget: React.FC = () => {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg }),
+        body: JSON.stringify({ message: userMsg, language: lang }),
       });
 
       const data = await response.json();
@@ -54,15 +68,19 @@ const ChatWidget: React.FC = () => {
 
   return (
     <div className="chat-widget-container">
-      {/* Chat Window */}
       {isOpen && (
         <div className="chat-window">
           <div className="chat-header">
             <div className="bot-info">
               <span className="bot-avatar">🤖</span>
               <div className="bot-text-info">
-                <span className="bot-name">İrfan'ın Asistanı</span>
-                <span className="bot-status">Aktif</span>
+                <span className="bot-name">Asistan</span>
+                <div className="lang-selector">
+                  <span className={lang === 'tr' ? 'active' : ''} onClick={() => setLang('tr')} title="Türkçe">🇹🇷</span>
+                  <span className={lang === 'en' ? 'active' : ''} onClick={() => setLang('en')} title="English">🇬🇧</span>
+                  <span className={lang === 'de' ? 'active' : ''} onClick={() => setLang('de')} title="Deutsch">🇩🇪</span>
+                  <span className={lang === 'other' ? 'active' : ''} onClick={() => setLang('other')} title="Other">🌐</span>
+                </div>
               </div>
             </div>
             <button className="close-btn" onClick={() => setIsOpen(false)}>×</button>
@@ -74,7 +92,7 @@ const ChatWidget: React.FC = () => {
                 {msg.text}
               </div>
             ))}
-            {isTyping && <div className="typing-indicator">Asistan yazıyor...</div>}
+            {isTyping && <div className="typing-indicator">...</div>}
             <div ref={messagesEndRef} />
           </div>
 
@@ -82,7 +100,7 @@ const ChatWidget: React.FC = () => {
             <div className="input-area">
               <input 
                 type="text" 
-                placeholder="Sorunuzu buraya yazın..." 
+                placeholder={lang === 'tr' ? "Yazın..." : lang === 'de' ? "Schreiben..." : "Type..."} 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
@@ -93,12 +111,11 @@ const ChatWidget: React.FC = () => {
                 </svg>
               </button>
             </div>
-            <p className="limit-disclaimer">Not: Dakikada 3 soru limitiniz vardır.</p>
+            <p className="limit-disclaimer">Limit: 3/min</p>
           </div>
         </div>
       )}
 
-      {/* Toggle Button */}
       <button className={`chat-toggle ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? (
           <svg viewBox="0 0 24 24" width="24" height="24" fill="white">

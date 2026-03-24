@@ -306,13 +306,32 @@ hr {
 
 .bot-status { font-size: 11px; color: #2da44e; display: flex; align-items: center; gap: 4px; }
 
-.bot-status::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background-color: #2da44e;
-  border-radius: 50%;
+.lang-selector {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.lang-selector span {
+  cursor: pointer;
+  filter: grayscale(1);
+  transition: all 0.2s;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.lang-selector span:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.lang-selector span.active {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.2);
+  border-bottom: 2px solid var(--gh-link);
+  padding-bottom: 2px;
 }
 
 .close-btn {
