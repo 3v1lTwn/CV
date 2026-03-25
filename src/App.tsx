@@ -9,14 +9,14 @@ type CVLanguage = 'tr' | 'en' | 'de';
 
 const translations = {
   tr: {
-    hero_roles: ["Intelligent Automation Architect", "Hyperautomation & AI Lead", "CoE Strategy Manager"],
+    hero_roles: ["Akıllı Otomasyon Mimarı", "Hiper-otomasyon ve Yapay Zeka Lideri", "CoE Strateji Müdürü"],
     title: "İRFAN DEMİRCİOĞLU",
-    role: "Intelligent Automation Architect | Hyperautomation & AI Lead",
+    role: "Akıllı Otomasyon Mimarı | Hiper-otomasyon ve Yapay Zeka Lideri",
     relocation: "Istanbul, Turkey (Mobilite: Avrupa Geneli)",
     summary_title: "🎯 PROFESYONEL ÖZET",
     summary_text: "Stratejik Akıllı Otomasyon Lideri. Akbank bünyesinde RPA Mükemmeliyet Merkezi (CoE) yönetimi, Üretken Yapay Zeka (LLM) entegrasyonu ve yüksek kapasiteli robot filolarının mimari tasarımı konularında 7+ yıl deneyim. UiPath, Azure AI ve Power Platform uzmanı.",
     experience_title: "💼 PROFESYONEL DENEYİM",
-    akbank_role: "Intelligent Automation Lead & Architect",
+    akbank_role: "Akıllı Otomasyon Lideri ve Mimarı",
     akbank_focus: "Stratejik Odak: Kurumsal Ölçekte Orkestrasyon, Yönetişim ve Hiper-otomasyon.",
     akbank_points: [
       "Enterprise-Scale Orchestration: Türkiye'nin en büyük özel bankalarından birinde, kritik finansal süreçleri yürüten devasa ölçekli bir otomasyon filosunun tüm yaşam döngüsünü ve mimari tasarımını yönetiyorum.",
@@ -24,19 +24,19 @@ const translations = {
       "Hyperautomation Transformation: Geleneksel RPA süreçlerini; GenAI (LLM), Document Understanding ve Azure AI servisleri ile entegre ederek, bankanın dijital dönüşümünü 'Akıllı Otomasyon' seviyesine taşıyorum.",
       "CoE Governance & Strategy: Geliştirme standartlarını, kod güvenliği protokollerini ve operasyonel verimlilik metriklerini belirleyerek kurumsal düzeyde bir yönetişim modeli uyguluyorum."
     ],
-    ntt_role: "Senior Software Engineer / RPA Consultant",
+    ntt_role: "Kıdemli Yazılım Mühendisi / RPA Danışmanı",
     ntt_points: [
       "Küresel müşteriler için UiPath ve Blue Prism kullanarak uçtan uca otomasyon çözümleri tasarlandı.",
       "Otomasyon darboğazlarını tespit etmek için Process Mining (Celonis) uygulandı ve süreç keşif süresi %40 azaltıldı.",
       "10'dan fazla kurumsal projede kullanılan standart bir 'Otomasyon Çerçevesi' oluşturuldu."
     ],
-    itelligence_role: "RPA Consultant",
+    itelligence_role: "RPA Danışmanı",
     itelligence_points: [
       "Çeşitli uygulama ekipleriyle iş birliği içinde kapsamlı proje planları tanımlandı ve tasarlandı.",
       "SharePoint klasörleri ve Power BI panoları oluşturuldu; Power Automate ile entegrasyon sağlandı.",
       "RPA yaşam döngüsünü otomatikleştirirken müşteri gereksinimlerini karşılamak için süreçler yeniden tasarlandı."
     ],
-    novacore_role: "Junior RPA Consultant",
+    novacore_role: "Küçük RPA Danışmanı",
     novacore_points: [
       "Çeşitli uygulama ekipleriyle iş birliği içinde kapsamlı proje planları tanımlandı ve tasarlandı.",
       "SharePoint klasörleri ve Power BI panoları oluşturuldu; Power Automate ile entegrasyon sağlandı.",
@@ -133,14 +133,14 @@ const translations = {
     lang_list: ["🇹🇷 Turkish (Native)", "🇬🇧 English (C1)", "🇩🇪 German (B1)"]
   },
   de: {
-    hero_roles: ["Intelligent Automation Architect", "Hyperautomation & AI Lead", "CoE Strategy Manager"],
+    hero_roles: ["KI-Automatisierungsarchitekt", "Hyperautomatisierungsleiter", "CoE-Stratege"],
     title: "İRFAN DEMİRCİOĞLU",
-    role: "Intelligent Automation Architect | Hyperautomation & AI Lead",
+    role: "KI-Automatisierungsarchitekt | Hyperautomatisierungsleiter",
     relocation: "Istanbul, Türkei (Umzug: Europaweit)",
     summary_title: "🎯 ZUSAMMENFASSUNG",
     summary_text: "Strategischer Intelligent Automation Leader mit über 7 Jahren Erfahrung. Experte für UiPath, Azure AI ve Power Platform mit Fokus auf Hyperautomatisierung ve KI-Integration.",
     experience_title: "💼 BERUFSERFAHRUNG",
-    akbank_role: "Intelligent Automation Lead & Architect",
+    akbank_role: "Intelligent Automation Leiter & Architekt",
     akbank_focus: "Strategischer Fokus: Orchestrierung, Governance ve Hyperautomatisierung.",
     akbank_points: [
       "Orchestrierung auf Unternehmensebene: Management des Lebenszyklus einer massiven Automatisierungsflotte.",
@@ -148,19 +148,19 @@ const translations = {
       "Hyperautomation Transformation: Integration von RPA mit GenAI (LLM) und Azure AI Services.",
       "CoE Governance & Strategie: Implementierung eines Governance-Modells für Entwicklungsstandards."
     ],
-    ntt_role: "Senior Software Engineer / RPA Consultant",
+    ntt_role: "Senior Software Engineer / RPA Berater",
     ntt_points: [
       "Entwicklung von End-to-End-Automatisierungslösungen für globale Kunden.",
       "Implementierung von Process Mining zur Identifizierung von Engpässen.",
       "Etablierung eines standardisierten Frameworks für über 10 Unternehmensprojekte."
     ],
-    itelligence_role: "RPA Consultant",
+    itelligence_role: "RPA Berater",
     itelligence_points: [
       "Definition und Design umfassender Projektpläne in Zusammenarbeit mit verschiedenen Teams.",
       "Erstellung von SharePoint-Ordnern, Power BI-Dashboards und Integration mit Power Automate.",
       "Bewertung und Neugestaltung von Prozessen zur Erfüllung von Kundenanforderungen."
     ],
-    novacore_role: "Junior RPA Consultant",
+    novacore_role: "Junior RPA Berater",
     novacore_points: [
       "Definition und Design umfassender Projektpläne in Zusammenarbeit mit verschiedenen Teams.",
       "Erstellung von SharePoint-Ordnern, Power BI-Dashboards und Integration mit Power Automate.",
