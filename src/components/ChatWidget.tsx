@@ -9,14 +9,44 @@ interface Message {
 
 type Language = 'tr' | 'en' | 'de' | 'other';
 
+const RATE_LIMIT_KEY = 'cv_chat_rate_limit';
+const RATE_LIMIT_MAX = 3;
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [lang, setLang] = useState<Language>('tr');
-  const [questionsLeft, setQuestionsLeft] = useState(3);
+  const [questionsLeft, setQuestionsLeft] = useState(RATE_LIMIT_MAX);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Initialize rate limit from localStorage
+  useEffect(() => {
+    const savedLimit = localStorage.getItem(RATE_LIMIT_KEY);
+    if (savedLimit) {
+      const { count, timestamp } = JSON.parse(savedLimit);
+      const now = Date.now();
+      
+      if (now - timestamp < RATE_LIMIT_WINDOW_MS) {
+        setQuestionsLeft(count);
+      } else {
+        // Reset if window passed
+        setQuestionsLeft(RATE_LIMIT_MAX);
+        localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count: RATE_LIMIT_MAX, timestamp: now }));
+      }
+    } else {
+      localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count: RATE_LIMIT_MAX, timestamp: Date.now() }));
+    }
+  }, []);
+
+  const updateQuestionsLeft = (newCount: number) => {
+    setQuestionsLeft(newCount);
+    const savedLimit = localStorage.getItem(RATE_LIMIT_KEY);
+    const timestamp = savedLimit ? JSON.parse(savedLimit).timestamp : Date.now();
+    localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count: newCount, timestamp }));
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -37,13 +67,27 @@ const ChatWidget = () => {
   }, [lang]);
 
   const handleSend = async () => {
-    if (!input.trim() || questionsLeft <= 0) return;
+    const savedLimit = localStorage.getItem(RATE_LIMIT_KEY);
+    const now = Date.now();
+    let currentQuestions = questionsLeft;
+
+    if (savedLimit) {
+      const { timestamp } = JSON.parse(savedLimit);
+      if (now - timestamp >= RATE_LIMIT_WINDOW_MS) {
+        currentQuestions = RATE_LIMIT_MAX;
+        localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count: RATE_LIMIT_MAX, timestamp: now }));
+      }
+    }
+
+    if (!input.trim() || currentQuestions <= 0) return;
 
     const userMsg = input.trim();
     setInput('');
     setMessages(prev => [...prev, { text: userMsg, sender: 'user' }]);
     setIsTyping(true);
-    setQuestionsLeft(prev => prev - 1);
+    
+    const newCount = currentQuestions - 1;
+    updateQuestionsLeft(newCount);
 
     try {
       const response = await fetch('/api/chat', {
@@ -56,7 +100,7 @@ const ChatWidget = () => {
       
       if (response.status === 429) {
         setMessages(prev => [...prev, { text: data.error || "Limit aşıldı.", sender: 'bot', isError: true }]);
-        setQuestionsLeft(0);
+        updateQuestionsLeft(0);
       } else if (!response.ok) {
         throw new Error(data.error || "Sunucu hatası");
       } else {
@@ -126,7 +170,7 @@ const ChatWidget = () => {
             <Lottie 
               animationData={{
                 "v": "5.5.7", "fr": 30, "ip": 0, "op": 60, "w": 100, "h": 100, "nm": "Robot", "ddd": 0,
-                "assets": [], "layers": [{"ddd": 0, "ind": 1, "ty": 4, "nm": "Circle", "sr": 1, "ks": {"o": {"a": 0, "k": 100}, "r": {"a": 0, "k": 0}, "p": {"a": 0, "k": [50, 50]}, "a": {"a": 0, "k": [0, 0]}, "s": {"a": 1, "k": [{"i": {"x": [0.667, 0.667], "y": [1, 1]}, "o": {"x": [0.333, 0.333], "y": [0, 0]}, "t": 0, "s": [80, 80]}, {"t": 30, "s": [100, 100]}, {"t": 60, "s": [80, 80]}]}}, "shapes": [{"ty": "gr", "it": [{"d": 1, "ty": "el", "s": {"a": 0, "k": [50, 50]}, "p": {"a": 0, "k": [0, 0]}, "nm": "Ellipse"}, {"ty": "fl", "c": {"a": 0, "k": [1, 1, 1, 1]}, "o": {"a": 0, "k": 100}, "nm": "Fill"}, {"ty": "tr", "p": {"a": 0, "k": [0, 0]}, "a": {"a": 0, "k": [0, 0]}, "s": {"a": 0, "k": [100, 100]}, "r": {"a": 0, "k": 0}, "o": {"a": 0, "k": 100}, "nm": "Transform"}]}]}]
+                "assets": [], "layers": [{"ddd": 0, "ind": 1, "ty": 4, "nm": "Circle", "sr": 1, "ks": {"o": {"a": 0, "k": 100}, "r": {"a": 0, "k": 0}, "p": {"a": 0, "k": [50, 50]}, "a": {"a": 0, "k": [0, 0]}, "s": {"a": 1, "k": [{"i": {"x": [0.667, 0.667], "y": [1, 1]}, "o": {"x": [0.333, 0.333], "y": [0, 0]}, "t": 0, "s": [80, 80]}, {"t": 30, "s": [100, 100]}, {"t": 60, "s": [80, 80]}]}}, "shapes": [{"ty": "gr", "it": [{"d": 1, "ty": "el", "s": {"a": 0, "k": [50, 50]}, "p": {"a": 0, "k": [0, 0]}, "nm": "Ellipse"}, {"ty": "fl", "c": {"a": 0, "k": [1, 1, 1, 1]}, "o": {"a": 0, "k": 100}, "nm": "Fill"}, {"ty": "tr", "p": {"a": 0, "k": [0, 0]}, "a": {"a": 0, "k": [0, 0]}, "s": {"a": 0, "k": [100, 100]}, "r": {"a": 0, "k": 0}, "o": {"a": 0, "k": 100}, "nm": "Transform"}]}]}]}]
               }}
               loop={true}
             />

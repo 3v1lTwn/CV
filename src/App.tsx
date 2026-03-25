@@ -36,7 +36,7 @@ const translations = {
       "SharePoint klasörleri ve Power BI panoları oluşturuldu; Power Automate ile entegrasyon sağlandı.",
       "RPA yaşam döngüsünü otomatikleştirirken müşteri gereksinimlerini karşılamak için süreçler yeniden tasarlandı."
     ],
-    novacore_role: "Junior RPA Danışmanı",
+    novacore_role: "RPA Geliştiricisi",
     novacore_points: [
       "Çeşitli uygulama ekipleriyle iş birliği içinde kapsamlı proje planları tanımlandı ve tasarlandı.",
       "SharePoint klasörleri ve Power BI panoları oluşturuldu; Power Automate ile entegrasyon sağlandı.",
@@ -50,7 +50,7 @@ const translations = {
       },
       {
         name: "LinkedIn Satış Botu",
-        desc: "Bağlantı istekleri gönderen, yeni bağlantıları kontrol eden ve görüşmeleri başlatmak ve toplantı planlamaları yapmak için bir sohbet botu API'si kullanan bir Satış Botu oluşturuldu. Python ve RPA teknolojileri kullanılarak uygulandı."
+        desc: "Bağlantı istekleri gönderen, yeni bağlantıları kontrol eden ve görüşmeleri başlatmak ve toplantı planlamaları yapmak için bir sohbat botu API'si kullanan bir Satış Botu oluşturuldu. Python ve RPA teknolojileri kullanılarak uygulandı."
       },
       {
         name: "Kripto Para Ticaret Botu",
@@ -98,7 +98,7 @@ const translations = {
       "Created and managed SharePoint folders, Power BI dashboards, and integrated with Power Automate.",
       "Assessed and redesigned processes to meet customer requirements while automating the RPA lifecycle."
     ],
-    novacore_role: "Junior RPA Consultant",
+    novacore_role: "RPA Developer",
     novacore_points: [
       "Defined and designed comprehensive project plans in collaboration with various execution teams.",
       "Created and managed SharePoint folders, Power BI dashboards, and integrated with Power Automate.",
@@ -160,7 +160,7 @@ const translations = {
       "Erstellung von SharePoint-Ordnern, Power BI-Dashboards und Integration mit Power Automate.",
       "Bewertung und Neugestaltung von Prozessen zur Erfüllung von Kundenanforderungen."
     ],
-    novacore_role: "Junior RPA Berater",
+    novacore_role: "RPA Entwickler",
     novacore_points: [
       "Definition und Design umfassender Projektpläne in Zusammenarbeit mit verschiedenen Teams.",
       "Erstellung von SharePoint-Ordnern, Power BI-Dashboards und Integration mit Power Automate.",
