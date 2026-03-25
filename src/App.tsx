@@ -9,12 +9,12 @@ type CVLanguage = 'tr' | 'en' | 'de';
 
 const translations = {
   tr: {
-    hero_roles: ["Akıllı Otomasyon Mimarı", "Hiper-otomasyon ve Yapay Zeka Lideri", "CoE Strateji Müdürü"],
+    hero_roles: ["Akıllı Otomasyon Mimarı", "Hiper-otomasyon ve Yapay Zeka Lideri", "CoE Strateji Yöneticisi"],
     title: "İRFAN DEMİRCİOĞLU",
     role: "Akıllı Otomasyon Mimarı | Hiper-otomasyon ve Yapay Zeka Lideri",
-    relocation: "Istanbul, Turkey (Mobilite: Avrupa Geneli)",
+    relocation: "İstanbul, Türkiye (Mobilite: Avrupa Geneli)",
     summary_title: "🎯 PROFESYONEL ÖZET",
-    summary_text: "Stratejik Akıllı Otomasyon Lideri. Akbank bünyesinde RPA Mükemmeliyet Merkezi (CoE) yönetimi, Üretken Yapay Zeka (LLM) entegrasyonu ve yüksek kapasiteli robot filolarının mimari tasarımı konularında 7+ yıl deneyim. UiPath, Azure AI ve Power Platform uzmanı.",
+    summary_text: "Stratejik Akıllı Otomasyon Lideri. Akbank bünyesinde RPA Mükemmeliyet Merkezi (CoE) yönetimi, Üretken Yapay Zeka (LLM) entegrasyonu ve yüksek kapasiteli robot filolarının mimari tasarımı konularında 7 yıldan fazla deneyim. UiPath, Azure AI ve Power Platform uzmanı.",
     experience_title: "💼 PROFESYONEL DENEYİM",
     akbank_role: "Akıllı Otomasyon Lideri ve Mimarı",
     akbank_focus: "Stratejik Odak: Kurumsal Ölçekte Orkestrasyon, Yönetişim ve Hiper-otomasyon.",
@@ -36,7 +36,7 @@ const translations = {
       "SharePoint klasörleri ve Power BI panoları oluşturuldu; Power Automate ile entegrasyon sağlandı.",
       "RPA yaşam döngüsünü otomatikleştirirken müşteri gereksinimlerini karşılamak için süreçler yeniden tasarlandı."
     ],
-    novacore_role: "Küçük RPA Danışmanı",
+    novacore_role: "Junior RPA Danışmanı",
     novacore_points: [
       "Çeşitli uygulama ekipleriyle iş birliği içinde kapsamlı proje planları tanımlandı ve tasarlandı.",
       "SharePoint klasörleri ve Power BI panoları oluşturuldu; Power Automate ile entegrasyon sağlandı.",
@@ -46,15 +46,15 @@ const translations = {
     hobby_items: [
       {
         name: "Yapay Zeka ile Meme Kanseri Tespiti",
-        desc: "Meme kanseri kitlelerinin boyutunu belirlemek ve hücreleri iyi huylu veya kötü huylu olarak sınıflandırmak için bir yapay zeka sistemi geliştirildi. Geliştirme ve kod yükseltmeleri için Python kullanıldı."
+        desc: "Meme kanseri kitlelerinin boyutunu belirlemek ve hücreleri iyi huylu veya kötü huylu olarak sınıflandırmak için bir yapay zeka sistemi geliştirildi. Geliştirme ve kod güncellemeleri için Python kullanıldı."
       },
       {
         name: "LinkedIn Satış Botu",
-        desc: "Bağlantı istekleri gönderen, yeni bağlantıları kontrol eden ve konuşmaları başlatmak ve toplantı yükseltmeleri ayarlamak için bir sohbet botu API'si kullanan bir Satış Botu oluşturuldu. Python ve RPA teknolojileri kullanılarak uygulandı."
+        desc: "Bağlantı istekleri gönderen, yeni bağlantıları kontrol eden ve görüşmeleri başlatmak ve toplantı planlamaları yapmak için bir sohbet botu API'si kullanan bir Satış Botu oluşturuldu. Python ve RPA teknolojileri kullanılarak uygulandı."
       },
       {
         name: "Kripto Para Ticaret Botu",
-        desc: "Şu anda en az 50 kripto parayı her 20 saniyede bir izleyen ve belirli kar al/zarar durdur ayarlarına sahip gelecekteki pozisyonları açan bir bot geliştiriliyor. Geliştirme için Python kullanılıyor."
+        desc: "Şu anda en az 50 kripto parayı her 20 saniyede bir izleyen ve belirli kar al/zarar durdur ayarlarına sahip gelecek pozisyonları açan bir bot geliştiriliyor. Geliştirme için Python kullanılıyor."
       }
     ],
     skills_title: "🛠️ YETENEKLER",
@@ -303,7 +303,7 @@ function App() {
                 <div className="experience-item">
                   <div className="exp-header">
                     <h3>AKBANK <span className="job-title">| {t.akbank_role}</span></h3>
-                    <span className="date">Dec 2022 – Present</span>
+                    <span className="date">Aralık 2022 – Günümüz</span>
                   </div>
                   <p className="exp-focus">{t.akbank_focus}</p>
                   <ul>
@@ -313,7 +313,7 @@ function App() {
                 <div className="experience-item">
                   <div className="exp-header">
                     <h3>NTT DATA Business Solutions <span className="job-title">| {t.ntt_role}</span></h3>
-                    <span className="date">Apr 2021 – Dec 2022</span>
+                    <span className="date">Nisan 2021 – Aralık 2022</span>
                   </div>
                   <ul>
                     {t.ntt_points.map((point: string, i: number) => <li key={i}>{point}</li>)}
@@ -322,7 +322,7 @@ function App() {
                 <div className="experience-item">
                   <div className="exp-header">
                     <h3>Itelligence Business Solutions <span className="job-title">| {t.itelligence_role}</span></h3>
-                    <span className="date">Jul 2020 – Apr 2021</span>
+                    <span className="date">Temmuz 2020 – Nisan 2021</span>
                   </div>
                   <ul>
                     {t.itelligence_points.map((point: string, i: number) => <li key={i}>{point}</li>)}
@@ -331,7 +331,7 @@ function App() {
                 <div className="experience-item">
                   <div className="exp-header">
                     <h3>Novacore Information Systems and Consulting <span className="job-title">| {t.novacore_role}</span></h3>
-                    <span className="date">Jun 2018 – Jul 2020</span>
+                    <span className="date">Haziran 2018 – Temmuz 2020</span>
                   </div>
                   <ul>
                     {t.novacore_points.map((point: string, i: number) => <li key={i}>{point}</li>)}
